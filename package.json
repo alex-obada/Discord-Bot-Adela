@@ -1,0 +1,26 @@
+{
+  "name": "discord-bot-adela",
+  "version": "1.0.0",
+  "description": "Bot ce trimite regulat un mesaj dragut pentru prietena mea",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex-obada/Discord-Bot-Adela.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex-obada/Discord-Bot-Adela/issues"
+  },
+  "homepage": "https://github.com/alex-obada/Discord-Bot-Adela#readme",
+  "dependencies": {
+    "discord.js": "^14.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.22.0"
+  }
+}
