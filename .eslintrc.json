@@ -8,7 +8,7 @@
 		"ecmaVersion": 2021
 	},
 	"rules": {
-		
+		"parserOptions": { "ecmaVersion": 8 },
 		"no-unused-vars":"off",
 		"arrow-spacing": ["warn", { "before": true, "after": true }],
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
@@ -29,11 +29,11 @@
 		"no-lonely-if": "error",
 		"no-multi-spaces": "error",
 		"no-multiple-empty-lines": ["error", { "max": 6, "maxEOF": 1, "maxBOF": 0 }],
-		"no-shadow": ["error", { "allow": ["err", "resolve", "reject"] }],
+		"no-shadow": ["warn", { "allow": ["err", "resolve", "reject"] }],
 		"no-trailing-spaces": ["error"],
 		"no-var": "error",
 		"object-curly-spacing": ["error", "always"],
-		"prefer-const": "error",
+		"prefer-const": "warn",
 		"quotes": ["off", "single"],
 		"semi": ["error", "always"],
 		"space-before-blocks": "error",
