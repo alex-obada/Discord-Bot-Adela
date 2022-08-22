@@ -3,11 +3,22 @@ const { Client, GatewayIntentBits } = require("discord.js");
 const { token, id } = require("./config.json");
 const fs = require("fs");
 
+// use for timeDelay
+const seconds = (s) => s * 1000;
+const minutes = (m) => m * seconds(60);
+const hours = (h) => h * minutes(60);
+const days = (d) => d * hours(24);
+
+// SETUP
+//=======================================================================
+const hour = 23; // 0 - 23
+const minute = 54;
+const timerDelay = minutes(0.2); // miliseconds (use the functions above)
+const message = "fsdhrfjsefh";
+//=======================================================================
+
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-const timerDelay = 0.25; // minutes
-const message = "woooooooooooo";
 
 const filePath = "./logs.log";
 let user;
@@ -23,21 +34,19 @@ const sendMessage = async (user, message) => {
     // logging setup
     //======================================
     i++;
-    console.log(i);
     const date = new Date(Date.now());
+    console.log(i + " " + date);
     //======================================
 
     await user
         .send(message)
         .then(() => logAction(i + " " + date.toString()))
         .catch(logError);
-    // .then(() => process.exit(0));
 };
 
 const logError = async () => {
     console.error;
     await logAction("^========== Message not sent ==========^");
-    // process.exit(1);
 };
 
 // stops timer after 5 minutes
@@ -48,11 +57,6 @@ const stopTimer = () => {
     }, minutes(5));
 };
 
-const seconds = (s) => s * 1000;
-const minutes = (m) => m * seconds(60);
-const hours = (h) => h * minutes(60);
-const days = (d) => d * hours(24);
-
 // When the client is ready, run this code (only once)
 client.once("ready", async () => {
     console.log("Running...");
@@ -61,29 +65,50 @@ client.once("ready", async () => {
         .fetch(id)
         .then((usr) => {
             const now = new Date(Date.now());
-            const etaMs =
+            let date = now.getDate(),
+                month = now.getMonth(),
+                year = now.getFullYear();
+
+            // if specified time passed in the current day
+            if (hour < now.getHours() || minute < now.getMinutes()) {
+                date++;
+                console.log(date);
+            }
+
+            const etaMs = //seconds(1);
                 new Date(
-                    now.getFullYear(),
-                    now.getMonth(),
-                    now.getDate(),
-                    now.getHours(),
-                    now.getMinutes() + 1
+                    year,
+                    month,
+                    date,
+                    hour, // hours
+                    minute // minutes
+                    // now.getSeconds() + 10
                 ).getTime() - now;
-            console.log(now.getMinutes() + 1);
+
+            // console.log(new Date(Date.now()));
+            console.log(etaMs + " ms till first message");
+
+            // sendMessage(usr, message);
 
             const timeout = setTimeout(() => {
-                const timerId = setInterval(
-                    async () => await sendMessage(usr, message),
-                    minutes(timerDelay)
-                );
+                // repeat with the interval of timerDelay
+
+                // Debug
+                // console.log(new Date(Date.now()));
+
+                // first is calling sendMessage and then waiting timerDelay for next call
+                sendMessage(usr, message);
+                const timerId = setInterval(async () => {
+                    // Debug
+                    // console.log(new Date(Date.now()));
+                    await sendMessage(usr, message);
+                }, timerDelay);
             }, etaMs);
         })
         .catch(logError);
 
-    // repeat with the interval of timerDelay
-
     // stops timer after 5 minutes
-    stopTimer();
+    // stopTimer();
 });
 
 // Login to Discord with your client's token

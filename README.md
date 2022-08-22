@@ -9,3 +9,11 @@ Bot ce trimite in fiecare zi un mesaj dragut pentru prietena mea
     "id": "<user id>"
 }
 ```
+
+## Setup
+```bash
+git clone <repo>
+cd ./<repo>
+npm install
+node .
+```
