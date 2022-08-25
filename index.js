@@ -17,7 +17,7 @@ let user;
 let i = 0;
 const timerDelay = hours(delay);
 const message = fs.readFileSync("./message.txt", "utf8");
-console.log(message);
+// console.log(message);
 
 const logAction = async (line) => {
     fs.writeFileSync(filePath, line + "\n", { flag: "a+" }, (err) => {
