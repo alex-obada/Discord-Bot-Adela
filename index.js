@@ -11,10 +11,9 @@ const days = (d) => d * hours(24);
 
 // SETUP
 //=======================================================================
-const hour = 23; // 0 - 23
-const minute = 54;
-const timerDelay = minutes(0.2); // miliseconds (use the functions above)
-const message = "fsdhrfjsefh";
+const hour = 12; // 0 - 23
+const minute = 0;
+const timerDelay = days(1); // miliseconds (use the functions above)
 //=======================================================================
 
 // Create a new client instance
@@ -23,6 +22,8 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const filePath = "./logs.log";
 let user;
 let i = 0;
+const message = fs.readFileSync("./message.txt", "utf8");
+// console.log(message);
 
 const logAction = async (line) => {
     fs.writeFileSync(filePath, line + "\n", { flag: "a+" }, (err) => {
@@ -70,9 +71,12 @@ client.once("ready", async () => {
                 year = now.getFullYear();
 
             // if specified time passed in the current day
-            if (hour < now.getHours() || minute < now.getMinutes()) {
+            if (
+                hour < now.getHours() ||
+                (now.getHours() === hour && minute < now.getMinutes())
+            ) {
                 date++;
-                console.log(date);
+                // console.log(date);
             }
 
             const etaMs = //seconds(1);
