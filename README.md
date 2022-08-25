@@ -6,7 +6,10 @@ Bot ce trimite in fiecare zi un mesaj dragut pentru prietena mea
 ```json
 {
     "token": "<bot token>",
-    "id": "<user id>"
+    "id": "<user id>",
+    "hour": 12,
+    "minute": 0,
+    "delay": 24 // ore, functioneaza si cu float
 }
 ```
 
@@ -15,5 +18,6 @@ Bot ce trimite in fiecare zi un mesaj dragut pentru prietena mea
 git clone <repo>
 cd ./<repo>
 npm install
+# config.js si message.txt actualizate
 node .
 ```

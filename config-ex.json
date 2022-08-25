@@ -1,4 +1,7 @@
 {
     "token": "<bot token>",
-    "id": "<user id>"
+    "id": "<user id>",
+    "hour": 12,
+    "minute": 0,
+    "delay": 24
 }

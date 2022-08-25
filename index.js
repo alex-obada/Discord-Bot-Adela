@@ -1,20 +1,13 @@
 // Require the necessary discord.js classes
 const { Client, GatewayIntentBits } = require("discord.js");
-const { token, id } = require("./config.json");
+const { token, id, hour, minute, delay } = require("./config.json");
 const fs = require("fs");
 
-// use for timeDelay
+// useful for timeDelay
 const seconds = (s) => s * 1000;
 const minutes = (m) => m * seconds(60);
 const hours = (h) => h * minutes(60);
 const days = (d) => d * hours(24);
-
-// SETUP
-//=======================================================================
-const hour = 12; // 0 - 23
-const minute = 0;
-const timerDelay = days(1); // miliseconds (use the functions above)
-//=======================================================================
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -22,8 +15,9 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const filePath = "./logs.log";
 let user;
 let i = 0;
+const timerDelay = hours(delay);
 const message = fs.readFileSync("./message.txt", "utf8");
-// console.log(message);
+console.log(message);
 
 const logAction = async (line) => {
     fs.writeFileSync(filePath, line + "\n", { flag: "a+" }, (err) => {
@@ -92,19 +86,12 @@ client.once("ready", async () => {
             // console.log(new Date(Date.now()));
             console.log(etaMs + " ms till first message");
 
-            // sendMessage(usr, message);
-
             const timeout = setTimeout(() => {
                 // repeat with the interval of timerDelay
-
-                // Debug
-                // console.log(new Date(Date.now()));
 
                 // first is calling sendMessage and then waiting timerDelay for next call
                 sendMessage(usr, message);
                 const timerId = setInterval(async () => {
-                    // Debug
-                    // console.log(new Date(Date.now()));
                     await sendMessage(usr, message);
                 }, timerDelay);
             }, etaMs);
