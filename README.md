@@ -18,6 +18,6 @@ Bot ce trimite in fiecare zi un mesaj dragut pentru prietena mea
 git clone <repo>
 cd ./<repo>
 npm install
-# config.js si message.txt actualizate
+# config.json si message.txt
 node .
 ```
